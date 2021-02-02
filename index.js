@@ -179,9 +179,30 @@ app.get('/:templateName/', async (req, res) => {
     if (!/^https?:/.test(req.query.url)) {
       return res.status(400).end('Invalid url!');
     }
-    const img = new ImageEx(req.query.url);
-    const canvas = render(templates[req.params.templateName], await img.loaded);
-    return canvas.export(res);
+  let direction = null;
+	if (req.query.reverse) {
+    if (req.query.reverse == 'false') {
+      direction = '/';
+    } else if (req.query.reverse == 'true') {
+      direction = '\\';
+    } else {
+      res.status(404).end();
+    }
+  } else {
+    direction = '/';
+  }
+  console.log('Got command ', direction, req.params.templateName, direction === '\\' ? 'flipped' : 'not flipped', req.query.url);
+	let result = null;
+	if (result === null) {
+		result = new ImageEx(req.query.url);
+        await result.loaded; // eslint-disable-line no-await-in-loop
+    }
+    const templateData = templates[req.params.templateName];
+    all(templateData, template => { // eslint-disable-line no-loop-func
+        result = render(template, result, null, direction === '\\');
+    });
+
+    return result.export(res);
   } catch (err) {
     console.log(err);
     return res.status(400).end(err.message);
