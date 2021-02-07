@@ -6,3 +6,4 @@ ffmpeg.exe
 gifsupport/js/
 gifsupport/*.map
 resources/custom
+package-lock.json
