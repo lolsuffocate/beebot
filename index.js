@@ -173,6 +173,23 @@ app.get('/debug/frame/', async (req, res) => {
   }
 });
 
+app.get('/', async (req, res) => {
+  try {
+    var templateList = [];
+    for (var key in templates) {
+      if(templates.hasOwnProperty(key)) { //to be safe
+        templateList.push(key);
+      }
+    }
+    console.log(templateList);
+    res.setHeader('Content-Type', 'application/json')
+    return res.end(JSON.stringify(templateList));
+  } catch (err) {
+    console.log(err);
+    return res.status(400).end(err.message);
+  }
+});
+
 app.get('/:templateName/', async (req, res) => {
   if (!templates[req.params.templateName]) return res.status(404).end();
   try {
