@@ -7,6 +7,37 @@
     "client_id": "<discord client id>"
   },
   "templates": {
+    "anger": {
+      "src": "./resources/anger.png",
+      "z": 2,
+      "anchor": {
+        "x": {
+          "position": 75,
+          "offset": 22.5,
+          "size": 100
+        },
+        "y": {
+          "position": 25,
+          "offset": 22.5
+        }
+      }
+    },
+    "ban": {
+      "src": "./resources/BanTemplate.png",
+      "z": 2,
+      "anchor": {
+        "x": {
+          "position": 50,
+          "offset": 512,
+          "size": 1200
+        },
+        "y": {
+          "position": 50,
+          "offset": 500,
+          "size": 1200
+        }
+      }
+    },
     "bee": {
       "src": "./resources/BeeTemplate.png",
       "z": 0,
@@ -19,51 +50,6 @@
         "y": {
           "position": 100,
           "offset": 530
-        }
-      }
-    },
-	"chicken": {
-      "src": "./resources/Chicken.png",
-      "z": 0,
-      "anchor": {
-        "x": {
-          "position": 50,
-          "offset": 475,
-          "size": 600
-        },
-        "y": {
-          "position": 100,
-          "offset": 530
-        }
-      }
-    },
-    "turtle": {
-      "src": "./resources/TurtleTemplate.png",
-      "z": 0,
-      "anchor": {
-        "x": {
-          "position": 50,
-          "offset": 210,
-          "size": 150
-        },
-        "y": {
-          "position": 100,
-          "offset": 150
-        }
-      }
-    },
-    "santa": {
-      "src": "./resources/SantaHat.png",
-      "z": 2,
-      "anchor": {
-        "x": {
-          "position": 50,
-          "offset": 275,
-          "size": 350
-        },
-        "y": {
-          "position": 0,
-          "offset": 150
         }
       }
     },
@@ -82,95 +68,87 @@
         }
       }
     },
-    "dank": {
-      "src": "./resources/DankHat.png",
+    "blood": {
+      "src": "./resources/bloodTemplate.png",
+      "z": 2,
+      "anchor": {
+        "x": {
+          "absolute": true,
+          "position": 0,
+          "offset": "Math.random()*(imgWidth - 400/5)",
+          "size": "123*5"
+        },
+        "y": {
+          "absolute": true,
+          "position": 0,
+          "offset": "Math.random()*(imgHeight - 368/5)",
+          "size": "130*5"
+        }
+      }
+    },
+    "cat": {
+      "src": "./resources/CatEars.png",
       "z": 2,
       "anchor": {
         "x": {
           "position": 50,
-          "offset": 150,
-          "size": 320
+          "offset": 300,
+          "size": 550
         },
         "y": {
           "position": 0,
-          "offset": 220
+          "offset": 100
         }
       }
     },
-    "cat": [
+    "chef": [
       {
-        "src": "./resources/CatEars.png",
+        "src": "./resources/ChefHat.png",
         "z": 2,
         "anchor": {
           "x": {
-            "position": 50,
-            "offset": 300,
-            "size": 500
+            "position": 35,
+            "offset": 199,
+            "size": 398
           },
           "y": {
-            "position": 100,
-            "offset": 550,
-            "size": 500
+            "position": 25,
+            "offset": 300,
+            "size": 369
           }
-        },
-        "attributes": {
-          "globalCompositeOperation": "destination-in"
         }
       },
       {
-        "src": "./resources/CatEars.png",
-        "z": 2,
+        "src": "./resources/ChefBackground.png",
+        "z": 0,
         "anchor": {
           "x": {
             "position": 0,
             "offset": 0,
-            "size": 600
+            "size": "imgWidth / previousCalculation.templateScale"
           },
           "y": {
             "position": 0,
-            "offset": 0,
-            "size": 565
+            "offset": 0
           }
         }
       }
     ],
-    "space": [
-      {
-        "src": "./resources/AstronautMask.png",
-        "z": 2,
-        "anchor": {
-          "x": {
-            "position": 50,
-            "offset": 300,
-            "size": 500
-          },
-          "y": {
-            "position": 100,
-            "offset": 550,
-            "size": 500
-          }
+    "chicken": {
+      "src": "./resources/Chicken.png",
+      "z": 0,
+      "anchor": {
+        "x": {
+          "position": 50,
+          "offset": 475,
+          "size": 600
         },
-        "attributes": {
-          "globalCompositeOperation": "destination-in"
-        }
-      },
-      {
-        "src": "./resources/AstronautHelmet.png",
-        "z": 2,
-        "anchor": {
-          "x": {
-            "position": 0,
-            "offset": 0,
-            "size": 600
-          },
-          "y": {
-            "position": 0,
-            "offset": 0,
-            "size": 565
-          }
+        "y": {
+          "position": 100,
+          "offset": 530
         }
       }
-    ],
+    },
     "comfy": [
       {
         "src": "./resources/ComfyBackground.png",
@@ -224,51 +202,79 @@
         }
       }
     ],
-    "netneutrality": {
-      "src": "./resources/NetNeutrality.png",
-      "z": 2,
-      "anchor": {
-        "x": {
-          "position": 50,
-          "offset": 256,
-          "size": 512
-        },
-        "y": {
-          "position": 50,
-          "offset": 256,
-          "size": 512
-        }
-      }
-    },
-    "anger": {
-      "src": "./resources/anger.png",
-      "z": 2,
-      "anchor": {
-        "x": {
-          "position": 75,
-          "offset": 22.5,
-          "size": 100
-        },
-        "y": {
-          "position": 25,
-          "offset": 22.5
-        }
-      }
-    },
-    "snowglobe": [
+    "couch": [
       {
-        "src": "./resources/SnowGlobeMask.png",
+        "src": "./resources/CouchTemplate.png",
         "z": 2,
         "anchor": {
           "x": {
             "position": 50,
-            "offset": 92.5,
-            "size": 185
+            "offset": 964
           },
           "y": {
-            "position": 0,
-            "offset": 0,
-            "size": 185
+            "position": 50,
+            "offset": 530,
+            "size": 200
+          }
+        }
+      }
+    ],
+    "cutout": {
+      "srcFilter": "invert_transparency"
+    },
+    "dank": {
+      "src": "./resources/DankHat.png",
+      "z": 2,
+      "anchor": {
+        "x": {
+          "position": 50,
+          "offset": 150,
+          "size": 320
+        },
+        "y": {
+          "position": 0,
+          "offset": 220
+        }
+      }
+    },
+    "deer": {
+      "src": "./resources/deer.png",
+      "z": 0,
+      "anchor": {
+        "x": {
+          "position": 0,
+          "offset": 0,
+          "size": 100
+        },
+        "y": {
+          "position": 0,
+          "offset": 35,
+          "size": 100
+        }
+      }
+    },
+    "flip": {
+      "srcFilter": "mirror_x"
+    },
+    "greyscale": {
+      "srcAttributes": {
+        "filter": "grayscale(100%)"
+      }
+    },
+    "hazmat": [
+      {
+        "src": "./resources/HazmatMask.png",
+        "z": 2,
+        "anchor": {
+          "x": {
+            "position": 50,
+            "offset": 225,
+            "size": 450
+          },
+          "y": {
+            "position": 50,
+            "offset": 225,
+            "size": 450
           }
         },
         "attributes": {
@@ -276,22 +282,95 @@
         }
       },
       {
-        "src": "./resources/SnowGlobe.png",
+        "src": "./resources/HazmatSuit.png",
         "z": 2,
         "anchor": {
           "x": {
             "position": 0,
             "offset": 0,
-            "size": 185
+            "size": 490
           },
           "y": {
             "position": 0,
             "offset": 0,
-            "size": 212
+            "size": 490
           }
         }
       }
     ],
+    "pokemon":[
+      {
+        "z": 2,
+        "srcFilter": "pokemon_static"
+      },
+      {
+        "z": 3,
+        "srcAttributes": {
+          "filter": "drop-shadow(-5px 2px 0px rgba(0,0,0,0.5))"
+        }
+      },
+      {
+        "src": "./resources/pokemon.png",
+        "z": 0,
+        "anchor": {
+          "x": {
+            "position": -30,
+            "offset": 0,
+            "size": 311
+          },
+          "y": {
+            "position": -50,
+            "offset": 0,
+            "size": 175
+          }
+        }
+      }
+    ],
+    "pokemon2":[
+      {
+        "z": 2,
+        "srcFilter": "pokemon_reveal",
+        "animated": true
+      },
+      {
+        "z": 3,
+        "srcAttributes": {
+          "filter": "drop-shadow(-5px 2px 0px rgba(0,0,0,0.5))"
+        }
+      },
+      {
+        "src": "./resources/pokemon.png",
+        "z": 0,
+        "anchor": {
+          "x": {
+            "position": -30,
+            "offset": 0,
+            "size": 311
+          },
+          "y": {
+            "position": -50,
+            "offset": 0,
+            "size": 175
+          }
+        }
+      }
+    ],
+    "hypers": {
+      "src": "./resources/hypersTemplate.png",
+      "z": 2,
+      "anchor": {
+        "x": {
+          "position": 0,
+          "offset": 70,
+          "size": 450
+        },
+        "y": {
+          "position": 100,
+          "offset": 445,
+          "size": 445
+        }
+      }
+    },
     "ice": [
       {
         "src": "./resources/IceCubeMask.png",
@@ -329,90 +408,45 @@
         }
       }
     ],
-    "snowman": [
-      {
-        "src": "./resources/SnowMan.png",
-        "z": 0,
-        "anchor": {
-          "x": {
-            "position": 50,
-            "offset": 125,
-            "size": 120
-          },
-          "y": {
-            "position": 100,
-            "offset": 60
-          }
-        }
-      },
-      {
-        "src": "./resources/SnowManHat.png",
-        "z": 2,
-        "anchor": {
-          "x": {
-            "position": 50,
-            "offset": 60,
-            "size": 200
-          },
-          "y": {
-            "position": 0,
-            "offset": 50
-          }
-        }
-      }
-    ],
-    "thinking": {
-      "src": "./resources/thinking.png",
+    "karen": {
+      "src": "./resources/karen.png",
       "z": 2,
       "anchor": {
         "x": {
-          "position": 0,
-          "offset": -25,
-          "size": 190
+          "position": -10,
+          "offset": 0,
+          "size": 250
         },
         "y": {
-          "position": 100,
-          "offset": 70
+          "position": 0,
+          "offset": 100
         }
       }
     },
-    "window": [
-      {
-        "src": "./resources/WindowMask.png",
-        "z": 2,
-        "anchor": {
-          "x": {
-            "position": 50,
-            "offset": 64,
-            "size": 100
-          },
-          "y": {
-            "position": 50,
-            "offset": 64,
-            "size": 100
-          }
+    "mirror": {
+      "srcFilter": "mirror_y"
+    },
+    "negative": {
+      "srcAttributes": {
+        "filter": "invert(100%)"
+      }
+    },
+    "netneutrality": {
+      "src": "./resources/NetNeutrality.png",
+      "z": 2,
+      "anchor": {
+        "x": {
+          "position": 50,
+          "offset": 256,
+          "size": 512
         },
-        "attributes": {
-          "globalCompositeOperation": "destination-in"
-        }
-      },
-      {
-        "src": "./resources/WindowTemplate.png",
-        "z": 2,
-        "anchor": {
-          "x": {
-            "position": 0,
-            "offset": 0,
-            "size": 128
-          },
-          "y": {
-            "position": 0,
-            "offset": 0,
-            "size": 128
-          }
+        "y": {
+          "position": 50,
+          "offset": 256,
+          "size": 512
         }
       }
-    ],
+    },
     "omegalul": [
       {
         "src": "./resources/OmegaLULBackground.png",
@@ -466,189 +500,6 @@
         }
       }
     ],
-    "shoot": {
-      "src": "./resources/BulletHole.png",
-      "z": 2,
-      "anchor": {
-        "x": {
-          "absolute": true,
-          "position": 0,
-          "offset": "Math.random()*(imgWidth - 123/5)",
-          "size": "123*5"
-        },
-        "y": {
-          "absolute": true,
-          "position": 0,
-          "offset": "Math.random()*(imgHeight - 130/5)",
-          "size": "130*5"
-        }
-      }
-    },
-    "ban": {
-      "src": "./resources/BanTemplate.png",
-      "z": 2,
-      "anchor": {
-        "x": {
-          "position": 50,
-          "offset": 512,
-          "size": 1200
-        },
-        "y": {
-          "position": 50,
-          "offset": 500,
-          "size": 1200
-        }
-      }
-    },
-    "pride": {
-      "src": "./resources/PrideOverlay.png",
-      "z": 2,
-      "anchor": {
-        "x": {
-          "position": 0,
-          "offset": 0,
-          "size": 512
-        },
-        "y": {
-          "position": 0,
-          "offset": 0,
-          "size": 512
-        }
-      },
-      "filter": "pride"
-    },
-	"transpride": {
-      "src": "./resources/TransPrideOverlay.png",
-      "z": 2,
-      "anchor": {
-        "x": {
-          "position": 0,
-          "offset": 0,
-          "size": 512
-        },
-        "y": {
-          "position": 0,
-          "offset": 0,
-          "size": 512
-        }
-      },
-      "filter": "pride"
-    },
-    "couch": [
-      {
-        "src": "./resources/CouchTemplate.png",
-        "z": 2,
-        "anchor": {
-          "x": {
-            "position": 50,
-            "offset": 964
-          },
-          "y": {
-            "position": 50,
-            "offset": 530,
-            "size": 200
-          }
-        }
-      },
-      {
-        "src": "./resources/CouchBackground.png",
-        "z": 0,
-        "anchor": {
-          "x": {
-            "position": 0,
-            "offset": 0,
-            "size": 1920
-          },
-          "y": {
-            "position": 0,
-            "offset": 0,
-            "size": 1080
-          }
-        }
-      }
-    ],
-    "ping": {
-      "src": "./resources/ping.png",
-      "z": 2,
-      "anchor": {
-        "x": {
-          "position": 0,
-          "offset": -94,
-          "size": 1024
-        },
-        "y": {
-          "position": 0,
-          "offset": -94,
-          "size": 1024
-        }
-      }
-    },
-    "unity": {
-      "src": "./resources/twitchunity.png",
-      "z": 2,
-      "anchor": {
-        "x": {
-          "position": 50,
-          "offset": 150,
-          "size": 300
-        },
-        "y": {
-          "position": 50,
-          "offset": 150,
-          "size": 250
-        }
-      }
-    },
-    "blood": {
-      "src": "./resources/bloodTemplate.png",
-      "z": 2,
-      "anchor": {
-        "x": {
-          "absolute": true,
-          "position": 0,
-          "offset": "Math.random()*(imgWidth - 400/5)",
-          "size": "123*5"
-        },
-        "y": {
-          "absolute": true,
-          "position": 0,
-          "offset": "Math.random()*(imgHeight - 368/5)",
-          "size": "130*5"
-        }
-      }
-    },
-    "hypers": {
-      "src": "./resources/hypersTemplate.png",
-      "z": 2,
-      "anchor": {
-        "x": {
-          "position": 0,
-          "offset": 70,
-          "size": 450
-        },
-        "y": {
-          "position": 100,
-          "offset": 445,
-          "size": 445
-        }
-      }
-    },
-    "deer": {
-      "src": "./resources/deer.png",
-      "z": 0,
-      "anchor": {
-        "x": {
-          "position": 0,
-          "offset": 0,
-          "size": 100
-        },
-        "y": {
-          "position": 0,
-          "offset": 35,
-          "size": 100
-        }
-      }
-    },
     "ornament": [
       {
         "src": "./resources/christmasBellMask.png",
@@ -682,6 +533,209 @@
             "position": 0,
             "offset": 0,
             "size": 380
+          }
+        }
+      }
+    ],
+    "ping": {
+      "src": "./resources/ping.png",
+      "z": 2,
+      "anchor": {
+        "x": {
+          "position": 0,
+          "offset": -94,
+          "size": 1024
+        },
+        "y": {
+          "position": 0,
+          "offset": -94,
+          "size": 1024
+        }
+      }
+    },
+    "police": {
+      "src": "./resources/PoliceHat.png",
+      "z": 2,
+      "anchor": {
+        "x": {
+          "position": 50,
+          "offset": 400,
+          "size": 700
+        },
+        "y": {
+          "position": 0,
+          "offset": 400
+        }
+      }
+    },
+    "pride": {
+      "src": "./resources/PrideOverlay.png",
+      "z": 2,
+      "anchor": {
+        "x": {
+          "position": 0,
+          "offset": 0,
+          "size": 512
+        },
+        "y": {
+          "position": 0,
+          "offset": 0,
+          "size": 512
+        }
+      },
+      "filter": "overlay"
+    },
+    "santa": {
+      "src": "./resources/SantaHat.png",
+      "z": 2,
+      "anchor": {
+        "x": {
+          "position": 50,
+          "offset": 275,
+          "size": 350
+        },
+        "y": {
+          "position": 0,
+          "offset": 150
+        }
+      }
+    },
+    "shoot": {
+      "src": "./resources/BulletHole.png",
+      "z": 2,
+      "anchor": {
+        "x": {
+          "absolute": true,
+          "position": 0,
+          "offset": "Math.random()*(imgWidth - 123/5)",
+          "size": "123*5"
+        },
+        "y": {
+          "absolute": true,
+          "position": 0,
+          "offset": "Math.random()*(imgHeight - 130/5)",
+          "size": "130*5"
+        }
+      }
+    },
+    "sign": {
+      "src": "./resources/peepoSign.png",
+      "z": 0,
+      "anchor": {
+        "x": {
+          "position": 50,
+          "offset": 300,
+          "size": 300
+        },
+        "y": {
+          "position": 50,
+          "offset": 140,
+          "size": 175
+        }
+      }
+    },
+    "snowglobe": [
+      {
+        "src": "./resources/SnowGlobeMask.png",
+        "z": 2,
+        "anchor": {
+          "x": {
+            "position": 50,
+            "offset": 92.5,
+            "size": 185
+          },
+          "y": {
+            "position": 0,
+            "offset": 0,
+            "size": 185
+          }
+        },
+        "attributes": {
+          "globalCompositeOperation": "destination-in"
+        }
+      },
+      {
+        "src": "./resources/SnowGlobe.png",
+        "z": 2,
+        "anchor": {
+          "x": {
+            "position": 0,
+            "offset": 0,
+            "size": 185
+          },
+          "y": {
+            "position": 0,
+            "offset": 0,
+            "size": 212
+          }
+        }
+      }
+    ],
+    "snowman": [
+      {
+        "src": "./resources/SnowMan.png",
+        "z": 0,
+        "anchor": {
+          "x": {
+            "position": 50,
+            "offset": 125,
+            "size": 120
+          },
+          "y": {
+            "position": 100,
+            "offset": 60
+          }
+        }
+      },
+      {
+        "src": "./resources/SnowManHat.png",
+        "z": 2,
+        "anchor": {
+          "x": {
+            "position": 50,
+            "offset": 60,
+            "size": 200
+          },
+          "y": {
+            "position": 0,
+            "offset": 50
+          }
+        }
+      }
+    ],
+    "space": [
+      {
+        "src": "./resources/AstronautMask.png",
+        "z": 2,
+        "anchor": {
+          "x": {
+            "position": 50,
+            "offset": 300,
+            "size": 500
+          },
+          "y": {
+            "position": 100,
+            "offset": 550,
+            "size": 500
+          }
+        },
+        "attributes": {
+          "globalCompositeOperation": "destination-in"
+        }
+      },
+      {
+        "src": "./resources/AstronautHelmet.png",
+        "z": 2,
+        "anchor": {
+          "x": {
+            "position": 0,
+            "offset": 0,
+            "size": 600
+          },
+          "y": {
+            "position": 0,
+            "offset": 0,
+            "size": 565
           }
         }
       }
@@ -723,68 +777,83 @@
         }
       }
     ],
-    "chef": [
-      {
-        "src": "./resources/ChefHat.png",
-        "z": 2,
-        "anchor": {
-          "x": {
-            "position": 35,
-            "offset": 199,
-            "size": 398
-          },
-          "y": {
-            "position": 25,
-            "offset": 300,
-            "size": 369
-          }
-        }
-      },
-      {
-        "src": "./resources/ChefBackground.png",
-        "z": 0,
-        "anchor": {
-          "x": {
-            "position": 0,
-            "offset": 0,
-            "size": "imgWidth / previousCalculation.templateScale"
-          },
-          "y": {
-            "position": 0,
-            "offset": 0
-          }
+    "thinking": {
+      "src": "./resources/thinking.png",
+      "z": 2,
+      "anchor": {
+        "x": {
+          "position": 0,
+          "offset": -25,
+          "size": 190
+        },
+        "y": {
+          "position": 100,
+          "offset": 70
         }
       }
-    ],
-    "police": {
-      "src": "./resources/PoliceHat.png",
+    },
+    "transpride": {
+      "src": "./resources/TransPrideOverlay.png",
+      "z": 2,
+      "anchor": {
+        "x": {
+          "position": 0,
+          "offset": 0,
+          "size": 512
+        },
+        "y": {
+          "position": 0,
+          "offset": 0,
+          "size": 512
+        }
+      },
+      "filter": "overlay"
+    },
+    "turtle": {
+      "src": "./resources/TurtleTemplate.png",
+      "z": 0,
+      "anchor": {
+        "x": {
+          "position": 50,
+          "offset": 210,
+          "size": 150
+        },
+        "y": {
+          "position": 100,
+          "offset": 150
+        }
+      }
+    },
+    "unity": {
+      "src": "./resources/twitchunity.png",
       "z": 2,
       "anchor": {
         "x": {
           "position": 50,
-          "offset": 400,
-          "size": 700
+          "offset": 150,
+          "size": 300
         },
         "y": {
-          "position": 0,
-          "offset": 400
+          "position": 50,
+          "offset": 150,
+          "size": 250
         }
       }
     },
-    "hazmat": [
+    "window": [
       {
-        "src": "./resources/HazmatMask.png",
+        "src": "./resources/WindowMask.png",
         "z": 2,
         "anchor": {
           "x": {
             "position": 50,
-            "offset": 225,
-            "size": 450
+            "offset": 64,
+            "size": 100
           },
           "y": {
             "position": 50,
-            "offset": 225,
-            "size": 450
+            "offset": 64,
+            "size": 100
           }
         },
         "attributes": {
@@ -792,18 +861,18 @@
         }
       },
       {
-        "src": "./resources/HazmatSuit.png",
+        "src": "./resources/WindowTemplate.png",
         "z": 2,
         "anchor": {
           "x": {
             "position": 0,
             "offset": 0,
-            "size": 490
+            "size": 128
           },
           "y": {
             "position": 0,
             "offset": 0,
-            "size": 490
+            "size": 128
           }
         }
       }

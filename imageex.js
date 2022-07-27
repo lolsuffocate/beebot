@@ -1,16 +1,26 @@
+// eslint-disable-next-line max-classes-per-file
 const _ = require('lodash');
 const fs = require('fs');
 const got = require('got');
-const Canvas = require('canvas');
+// const Canvas = require('canvas');
+const Canvas = require('@napi-rs/canvas');
 const streamBuffers = require('stream-buffers');
 const mime = require('mime-types');
 const { GifReader } = require('omggif');
 const GifEncoder = require('gifencoder');
+const { Readable } = require('stream');
 
 const { createCanvas } = Canvas;
 const { Image } = Canvas;
 
 function loadFromUri(uri) {
+  if (uri === undefined) {
+    return new Promise(resolve => {
+      resolve({
+        type: 'effect'
+      });
+    });
+  }
   if (uri.startsWith('http')) {
     return got(uri, { encoding: null }).then(res => ({
       type: res.headers['content-type'],
@@ -33,13 +43,13 @@ function _drawImage(ctx, img, x, y, args = {}) {
     ctx.save();
     if (args.transform) {
       _.each(args.transform, (val, prop) => {
-        console.log(`Transforming ${prop} by ${val}`);
+        // console.log(`Transforming ${prop} by ${val}`);
         ctx[prop](...val);
       });
     }
     if (args.attributes) {
       _.each(args.attributes, (val, prop) => {
-        console.log(`Setting ${prop} to ${val}`);
+        // console.log(`Setting ${prop} to ${val}`);
         ctx[prop] = val;
       });
     }
@@ -61,8 +71,9 @@ class ImageEx {
     this.loaded = loadFromUri(uri).then(result => {
       this.type = result.type;
       this.data = result.data;
-      if (this.type === 'image/gif') {
-        console.log(uri, 'loaded');
+      if (this.type === 'effect') {
+        this.isEffectOnly = true;
+      } else if (this.type === 'image/gif') {
         this.initGif();
       } else {
         this.initStatic();
@@ -71,15 +82,15 @@ class ImageEx {
     });
   }
 
-
   initGif() {
     const reader = new GifReader(new Uint8Array(this.data));
     this.width = reader.width;
     this.height = reader.height;
-    console.log('Decoding frames');
+    this.loops = reader.loopCount();
+    // console.log('Decoding frames');
     this.frames = this.decodeFrames(reader);
 
-    console.log('Frames decoded!');
+    // console.log('Frames decoded!');
     this.renderAllFrames();
 
     return this;
@@ -87,21 +98,21 @@ class ImageEx {
 
   initStatic() {
     const img = new Image();
+    img.onload = () => {
+      this.width = img.width;
+      this.height = img.height;
+      const canvas = createCanvas(this.width, this.height);
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0);
+
+      this.frames = [{
+        actualOffset: 0,
+        actualDelay: Infinity,
+        delay: Infinity,
+        canvas
+      }];
+    };
     img.src = this.data;
-
-    this.width = img.width;
-    this.height = img.height;
-
-    const canvas = createCanvas(this.width, this.height);
-    const ctx = canvas.getContext('2d');
-    ctx.drawImage(img, 0, 0);
-
-    this.frames = [{
-      actualOffset: 0,
-      actualDelay: Infinity,
-      delay: Infinity,
-      canvas
-    }];
   }
 
   decodeFrames(reader) {
@@ -128,7 +139,7 @@ class ImageEx {
     let saved;
     for (let i = 0; i < this.frames.length; ++i) {
       const frame = this.frames[i];
-      console.log('Rendering frame', frame);
+      // console.log('Rendering frame', frame);
       if (typeof disposeFrame === 'function') disposeFrame();
 
       switch (frame.disposal) {
@@ -168,25 +179,34 @@ class ImageEx {
     _drawImage(ctx, this.frames[frameNum].canvas, x, y, args);
   }
 }
+
 class CanvasEx {
-  constructor(width, height) {
+  constructor(width, height, loops = 0) {
     this.width = Math.round(width);
     this.height = Math.round(height);
     this.frames = [];
     this.totalDuration = Infinity;
+    this.loops = loops;
   }
 
   setDelay(frame, actualDelay, delay) {
-    if (!Number.isFinite(this.totalDuration)) this.totalDuration = 0;
-    else if (Number.isFinite(frame.actualDelay)) this.totalDuration -= frame.actualDelay || 0;
+    if (!Number.isFinite(this.totalDuration)) {
+      this.totalDuration = 0;
+    } else if (Number.isFinite(frame.actualDelay)) this.totalDuration -= frame.actualDelay || 0;
     if ((actualDelay === undefined || actualDelay === null)
-      && (delay === undefined || delay === null)) throw new Error('Delay has to be set!');
+      && (delay === undefined || delay === null)) {
+      throw new Error('Delay has to be set!');
+    }
     if (!Number.isNaN(delay) && delay <= 1) {
       delay = 10;
     }
     frame.delay = delay || Math.max(Math.round(actualDelay / 10), 2);
     frame.actualDelay = actualDelay || Math.max(delay * 10, 20);
     this.totalDuration += frame.actualDelay;
+  }
+
+  setLoops(count = 0) {
+    this.loops = count;
   }
 
   addFrame(actualDelay, delay) {
@@ -215,7 +235,10 @@ class CanvasEx {
         this.addFrame(null, frame.delay);
         if (this.frames.length > 0) {
           this.frames[i].ctx.antialias = 'none';
-          _drawImage(this.frames[i].ctx, this.frames[0].canvas, 0, 0, { width: this.width, height: this.height });
+          _drawImage(this.frames[i].ctx, this.frames[0].canvas, 0, 0, {
+            width: this.width,
+            height: this.height
+          });
           this.frames[i].ctx.antialias = 'default';
         }
       }
@@ -254,8 +277,10 @@ class CanvasEx {
       if (outStream.setHeader) outStream.setHeader('Content-Type', 'image/gif');
       const gif = new GifEncoder(this.width, this.height);
       gif.createReadStream().pipe(outStream);
+      gif.setRepeat(this.loops);
       // gif.setTransparent(0xfefe01);
-      gif.setRepeat(0);
+      // gif.setRepeat(0);
+      gif.setTransparent(this.frames[0].transparent_index);
       gif.start();
       for (let i = 0; i < this.frames.length; ++i) {
         const frame = this.frames[i];
@@ -265,7 +290,8 @@ class CanvasEx {
       gif.finish();
     } else if (this.frames.length === 1) {
       if (outStream.setHeader) outStream.setHeader('Content-Type', 'image/png');
-      const stream = this.frames[0].canvas.pngStream();
+      // const stream = this.frames[0].canvas.pngStream();
+      const stream = Readable.from(this.frames[0].canvas.toBuffer('image/png'));
       stream.pipe(outStream);
     } else {
       throw new Error('No image data to be exported');
@@ -273,15 +299,18 @@ class CanvasEx {
   }
 
   toBuffer() {
+    /* return new Promise(resolve => {
+      resolve(this.frames[0].canvas.toBuffer('image/png'));
+    }); */
+
     const buf = new streamBuffers.WritableStreamBuffer({
       initialSize: this.height * this.width * 4 * this.frames.length,
       incrementAmount: this.height * this.width * 4
     });
     this.export(buf);
-
     return new Promise(resolve => {
       buf.on('finish', () => {
-        console.log('Render completed');
+        // console.log('Render completed');
         resolve(buf.getContents());
       });
     });

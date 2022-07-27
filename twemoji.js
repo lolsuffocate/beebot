@@ -1,7 +1,7 @@
-var location = {};
-var document = {};
-/*jslint indent: 2, browser: true, bitwise: true, plusplus: true */
-var twemoji = (function (
+const document = {};
+/* jslint indent: 2, browser: true, bitwise: true, plusplus: true */
+// eslint-disable-next-line function-paren-newline
+const twemoji = (function () {
   /*! Copyright Twitter Inc. and other contributors. Licensed under MIT *//*
     https://github.com/twitter/twemoji/blob/gh-pages/LICENSE
   */
@@ -11,19 +11,16 @@ var twemoji = (function (
   //            please update its `createTwemoji` function
   //            at the bottom of the same file instead.
 
-) {
-  'use strict';
+  /* jshint maxparams:4 */
 
-  /*jshint maxparams:4 */
-
-  var
+  // eslint-disable-next-line one-var
+  const
     // the exported module object
-    twemoji = {
+    twemoji1 = {
 
-
-    /////////////////////////
-    //      properties     //
-    /////////////////////////
+      // ///////////////////////
+      //      properties     //
+      // ///////////////////////
 
       // default assets url, by default will be Twitter Inc. CDN
       base: 'https://twemoji.maxcdn.com/2/',
@@ -56,7 +53,7 @@ var twemoji = (function (
          *  '1f1e8-1f1f3'.split('-').map(twemoji.convert.fromCodePoint).join('')
          *  // "\ud83c\udde8\ud83c\uddf3"
          */
-        fromCodePoint: fromCodePoint,
+        fromCodePoint,
 
         /**
          * Given UTF16 surrogate pairs, returns the equivalent HEX codepoint.
@@ -72,13 +69,12 @@ var twemoji = (function (
          *  twemoji.convert.toCodePoint('\ud83c\udde8\ud83c\uddf3', '~');
          *  // "1f1e8~1f1f3"
          */
-        toCodePoint: toCodePoint
+        toCodePoint
       },
 
-
-    /////////////////////////
-    //       methods       //
-    /////////////////////////
+      // ///////////////////////
+      //       methods       //
+      // ///////////////////////
 
       /**
        * User first: used to remove missing images
@@ -90,6 +86,7 @@ var twemoji = (function (
        */
       onerror: function onerror() {
         if (this.parentNode) {
+          // eslint-disable-next-line no-use-before-define
           this.parentNode.replaceChild(createText(this.alt, false), this);
         }
       },
@@ -179,7 +176,8 @@ var twemoji = (function (
        *  // I <img class="emoji" draggable="false" alt="❤️" src="/assets/72x72/2764.png"/> emoji!
        *
        */
-      parse: parse,
+      // eslint-disable-next-line no-use-before-define
+      parse,
 
       /**
        * Given a string, invokes the callback argument
@@ -199,7 +197,8 @@ var twemoji = (function (
        *
        *                    and others commonly received via replace.
        */
-      replace: replace,
+      // eslint-disable-next-line no-use-before-define
+      replace,
 
       /**
        * Simplify string tests against emoji.
@@ -213,7 +212,8 @@ var twemoji = (function (
        *    console.log("emoji All The Things!");
        *  }
        */
-      test: test
+      // eslint-disable-next-line no-use-before-define
+      test
     },
 
     // used to escape HTML special chars in attributes
@@ -243,15 +243,15 @@ var twemoji = (function (
     shouldntBeParsed = /^(?:iframe|noframes|noscript|script|select|style|textarea)$/,
 
     // just a private shortcut
+    // eslint-disable-next-line prefer-destructuring
     fromCharCode = String.fromCharCode;
 
-  return twemoji;
+  return twemoji1;
 
-
-  /////////////////////////
+  // ///////////////////////
   //  private functions  //
   //     declaration     //
-  /////////////////////////
+  // ///////////////////////
 
   /**
    * Shortcut to create text nodes
@@ -268,6 +268,7 @@ var twemoji = (function (
    * @return  string  text encoded to use in HTML attribute
    */
   function escapeHTML(s) {
+    // eslint-disable-next-line no-use-before-define
     return s.replace(rescaper, replacer);
   }
 
@@ -290,11 +291,11 @@ var twemoji = (function (
    * @return  Array same list with new discovered nodes, if any
    */
   function grabAllTextNodes(node, allText) {
-    var
-      childNodes = node.childNodes,
-      length = childNodes.length,
-      subnode,
-      nodeType;
+    const
+      { childNodes } = node;
+    let { length } = childNodes;
+    let subnode;
+    let nodeType;
     while (length--) {
       subnode = childNodes[length];
       nodeType = subnode.nodeType;
@@ -305,8 +306,8 @@ var twemoji = (function (
       }
       // ignore all nodes that are not type 1, that are svg, or that
       // should not be parsed as script, style, and others
-      else if (nodeType === 1 && !('ownerSVGElement' in subnode) &&
-          !shouldntBeParsed.test(subnode.nodeName.toLowerCase())) {
+      else if (nodeType === 1 && !('ownerSVGElement' in subnode)
+          && !shouldntBeParsed.test(subnode.nodeName.toLowerCase())) {
         grabAllTextNodes(subnode, allText);
       }
     }
@@ -322,10 +323,9 @@ var twemoji = (function (
    */
   function grabTheRightIcon(rawText) {
     // if variant is present as \uFE0F
-    return toCodePoint(rawText.indexOf(U200D) < 0 ?
-      rawText.replace(UFE0Fg, '') :
-      rawText
-    );
+    return toCodePoint(rawText.indexOf(U200D) < 0
+      ? rawText.replace(UFE0Fg, '')
+      : rawText);
   }
 
   /**
@@ -342,22 +342,22 @@ var twemoji = (function (
    * @return  Element same generic node with emoji in place, if any.
    */
   function parseNode(node, options) {
-    var
-      allText = grabAllTextNodes(node, []),
-      length = allText.length,
-      attrib,
-      attrname,
-      modified,
-      fragment,
-      subnode,
-      text,
-      match,
-      i,
-      index,
-      img,
-      rawText,
-      iconId,
-      src;
+    const
+      allText = grabAllTextNodes(node, []);
+    let { length } = allText;
+    let attrib;
+    let attrname;
+    let modified;
+    let fragment;
+    let subnode;
+    let text;
+    let match;
+    let i;
+    let index;
+    let img;
+    let rawText;
+    let iconId;
+    let src;
     while (length--) {
       modified = false;
       fragment = document.createDocumentFragment();
@@ -367,9 +367,7 @@ var twemoji = (function (
       while ((match = re.exec(text))) {
         index = match.index;
         if (index !== i) {
-          fragment.appendChild(
-            createText(text.slice(i, index), true)
-          );
+          fragment.appendChild(createText(text.slice(i, index), true));
         }
         rawText = match[0];
         iconId = grabTheRightIcon(rawText);
@@ -382,10 +380,10 @@ var twemoji = (function (
           attrib = options.attributes(rawText, iconId);
           for (attrname in attrib) {
             if (
-              attrib.hasOwnProperty(attrname) &&
+              attrib.hasOwnProperty(attrname)
               // don't allow any handlers to be set + don't allow overrides
-              attrname.indexOf('on') !== 0 &&
-              !img.hasAttribute(attrname)
+              && attrname.indexOf('on') !== 0
+              && !img.hasAttribute(attrname)
             ) {
               img.setAttribute(attrname, attrib[attrname]);
             }
@@ -403,9 +401,7 @@ var twemoji = (function (
       if (modified) {
         // any text left to be added ?
         if (i < text.length) {
-          fragment.appendChild(
-            createText(text.slice(i), true)
-          );
+          fragment.appendChild(createText(text.slice(i), true));
         }
         // replace the text node only, leave intact
         // anything else surrounding such text
@@ -429,18 +425,20 @@ var twemoji = (function (
    * @return  the string with <img tags> replacing all found and parsed emoji
    */
   function parseString(str, options) {
-    return replace(str, function (rawText) {
-      var
-        ret = rawText,
-        iconId = grabTheRightIcon(rawText),
-        src = options.callback(iconId, options),
-        attrib,
-        attrname;
+    return replace(str, rawText => {
+      let
+        ret = rawText;
+      const iconId = grabTheRightIcon(rawText);
+      const src = options.callback(iconId, options);
+      let attrib;
+      let attrname;
       if (src) {
         // recycle the match string replacing the emoji
         // with its image counter part
         ret = '<img '.concat(
-          'class="', options.className, '" ',
+          'class="',
+          options.className,
+          '" ',
           'draggable="false" ',
           // needs to preserve user original intent
           // when variants should be copied and pasted too
@@ -454,10 +452,10 @@ var twemoji = (function (
         attrib = options.attributes(rawText, iconId);
         for (attrname in attrib) {
           if (
-            attrib.hasOwnProperty(attrname) &&
+            attrib.hasOwnProperty(attrname)
             // don't allow any handlers to be set + don't allow overrides
-            attrname.indexOf('on') !== 0 &&
-            ret.indexOf(' ' + attrname + '=') === -1
+            && attrname.indexOf('on') !== 0
+            && ret.indexOf(` ${attrname}=`) === -1
           ) {
             ret = ret.concat(' ', attrname, '="', escapeHTML(attrib[attrname]), '"');
           }
@@ -494,20 +492,19 @@ var twemoji = (function (
    *                  Returns initial value otherwise.
    */
   function toSizeSquaredAsset(value) {
-    return typeof value === 'number' ?
-      value + 'x' + value :
-      value;
+    return typeof value === 'number'
+      ? `${value}x${value}`
+      : value;
   }
 
-
-  /////////////////////////
+  // ///////////////////////
   //  exported functions //
   //     declaration     //
-  /////////////////////////
+  // ///////////////////////
 
   function fromCodePoint(codepoint) {
-    var code = typeof codepoint === 'string' ?
-          parseInt(codepoint, 16) : codepoint;
+    let code = typeof codepoint === 'string'
+      ? parseInt(codepoint, 16) : codepoint;
     if (code < 0x10000) {
       return fromCharCode(code);
     }
@@ -520,18 +517,18 @@ var twemoji = (function (
 
   function parse(what, how) {
     if (!how || typeof how === 'function') {
-      how = {callback: how};
+      how = { callback: how };
     }
     // if first argument is string, inject html <img> tags
     // otherwise use the DOM tree and parse text nodes only
     return (typeof what === 'string' ? parseString : parseNode)(what, {
-      callback:   how.callback || defaultImageSrcGenerator,
+      callback: how.callback || defaultImageSrcGenerator,
       attributes: typeof how.attributes === 'function' ? how.attributes : returnNull,
-      base:       typeof how.base === 'string' ? how.base : twemoji.base,
-      ext:        how.ext || twemoji.ext,
-      size:       how.folder || toSizeSquaredAsset(how.size || twemoji.size),
-      className:  how.className || twemoji.className,
-      onerror:    how.onerror || twemoji.onerror
+      base: typeof how.base === 'string' ? how.base : twemoji1.base,
+      ext: how.ext || twemoji1.ext,
+      size: how.folder || toSizeSquaredAsset(how.size || twemoji1.size),
+      className: how.className || twemoji1.className,
+      onerror: how.onerror || twemoji1.onerror
     });
   }
 
@@ -542,23 +539,23 @@ var twemoji = (function (
   function test(text) {
     // IE6 needs a reset before too
     re.lastIndex = 0;
-    var result = re.test(text);
+    const result = re.test(text);
     re.lastIndex = 0;
     return result;
   }
 
   function toCodePoint(unicodeSurrogates, sep) {
-    var
-      r = [],
-      c = 0,
-      p = 0,
-      i = 0;
+    const
+      r = [];
+    let c = 0;
+    let p = 0;
+    let i = 0;
     while (i < unicodeSurrogates.length) {
       c = unicodeSurrogates.charCodeAt(i++);
       if (p) {
         r.push((0x10000 + ((p - 0xD800) << 10) + (c - 0xDC00)).toString(16));
         p = 0;
-      } else if (0xD800 <= c && c <= 0xDBFF) {
+      } else if (c >= 0xD800 && c <= 0xDBFF) {
         p = c;
       } else {
         r.push(c.toString(16));
@@ -566,6 +563,5 @@ var twemoji = (function (
     }
     return r.join(sep || '-');
   }
-
 }());
 module.exports = twemoji;
